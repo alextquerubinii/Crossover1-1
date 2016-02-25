@@ -9,7 +9,14 @@ general:
      
 test:
   override:
-    - mvn clean install
+    - bundle exec rspec:
+        parallel: true
+        files:
+          - spec/unit/sample.rb   # can be a direct path to file
+          - spec/**/*.rb          # or a glob (ruby globs)
   post:
     - mkdir -p $CIRCLE_TEST_REPORTS/junit/
     - find . -type f -regex ".*/target/failsafe-reports/.*xml" -exec cp {} $CIRCLE_TEST_REPORTS/junit/ \;
+    
+    
+
